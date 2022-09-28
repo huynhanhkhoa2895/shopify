@@ -17,6 +17,7 @@ mobile/.idea
 be/dist/
 be/node_modules/
 be/.idea
+be/.prettierrc
 be/.env
 # Logs
 be/logs
