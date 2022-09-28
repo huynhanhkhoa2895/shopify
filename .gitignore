@@ -1,1 +1,54 @@
-mobile/node_modules/mobile/.expomobile/dist/mobile/npm-debug.*mobile/*.jksmobile/*.p8mobile/*.p12mobile/*.keymobile/*.mobileprovisionmobile/*.orig.*mobile/web-build/mobile/.idea# compiled outputbe/dist/be/node_modules/# Logsbe/logsbe/*.logbe/npm-debug.log*be/pnpm-debug.log*be/yarn-debug.log*be/yarn-error.log*be/lerna-debug.log*# OSbe/.DS_Store# Testsbe/coveragebe/.nyc_output# IDEs and editorsbe/.ideabe/.projectbe/.classpathbe/.c9/be/*.launchbe/.settings/be/*.sublime-workspace# IDE - VSCodebe/.vscode/*!.vscode/settings.json!.vscode/tasks.json!.vscode/launch.json!.vscode/extensions.jsonpush.idea
+mobile/node_modules/
+
+
+mobile/.expo
+mobile/dist/
+mobile/npm-debug.*
+mobile/*.jks
+mobile/*.p8
+mobile/*.p12
+mobile/*.key
+mobile/*.mobileprovision
+mobile/*.orig.*
+mobile/web-build/
+mobile/.idea
+
+# compiled output
+be/dist/
+be/node_modules/
+be/.idea
+be/.env
+# Logs
+be/logs
+be/*.log
+be/npm-debug.log*
+be/pnpm-debug.log*
+be/yarn-debug.log*
+be/yarn-error.log*
+be/lerna-debug.log*
+
+# OS
+be/.DS_Store
+
+# Tests
+be/coverage
+be/.nyc_output
+
+# IDEs and editors
+be/.idea
+be/.project
+be/.classpath
+be/.c9/
+be/*.launch
+be/.settings/
+be/*.sublime-workspace
+
+# IDE - VSCode
+be/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+push
+
+.idea

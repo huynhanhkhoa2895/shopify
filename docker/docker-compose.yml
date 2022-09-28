@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    image: ubuntu-image
+    build: ..
+    ports:
+      - '3000:3000'
+      - '80:80'
+    restart: always
+    tty: true
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=superuser
+      - MONGO_INITDB_ROOT_PASSWORD=superuser
+      - MONGO_INITDB_DATABASE=shopify
+    ports:
+      - 8081:27017
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - '6379:6379'
