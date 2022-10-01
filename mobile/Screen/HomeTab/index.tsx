@@ -8,6 +8,7 @@ import History from "./History"
 
 import {css} from "../../config";
 import {Text} from "react-native"
+import Profile from "./Profile";
 const Tab = createBottomTabNavigator();
 export default () => {
     return (
@@ -28,6 +29,8 @@ export default () => {
                         iconName = focused ? 'calendar' : 'calendar-outline';
                     }else if (route.name === 'Contact') {
                         iconName = focused ? 'call' : 'call-outline';
+                    }else if (route.name === 'Profile') {
+                        iconName = focused ? 'person' : 'person-outline';
                     }
 
                     // You can return any component that you like here!
@@ -46,6 +49,8 @@ export default () => {
                         title = "Chính sách";
                     } else if (route.name === 'Contact') {
                         title = "Liên hệ";
+                    } else if (route.name === 'Profile') {
+                        title = "Profile";
                     }
                     return <Text style={{color: "#fff", fontSize: 11}}>{title}</Text>
                 }
@@ -56,6 +61,7 @@ export default () => {
             <Tab.Screen name="History" component={History}/>
             <Tab.Screen name="Policy" component={Policy}/>
             <Tab.Screen name="Contact" component={Contact}/>
+            <Tab.Screen name="Profile" component={Profile}/>
         </Tab.Navigator>
     );
 }
