@@ -9,8 +9,7 @@ export class ProductsController {
 
     @Get()
     async findAll(){
-        const data = await this.ps.list()
-        console.log(`this.ps.list()`,data);
+        const data = await this.ps.list("id,title")
         return {
             data
         }

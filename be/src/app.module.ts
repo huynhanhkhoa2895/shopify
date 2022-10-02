@@ -8,10 +8,16 @@ import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
 import configuration from '../config/configuration';
 import ApiService from './Services/api.service';
-
+import ProductRepository from "./repository/Product"
 @Module({
   controllers: [AppController, CheckoutController, ProductsController],
-  providers: [AppService, CheckoutService, ApiService, ProductsService],
+  providers: [
+      AppService,
+      CheckoutService,
+      ApiService,
+      ProductsService,
+      ProductRepository
+  ],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
