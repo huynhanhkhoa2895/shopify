@@ -11,13 +11,25 @@ export default class {
   }
 
   constructor(private configService: ConfigService) {}
-  storefront(data : string) : Promise<RequestReturn>{
+  storefront(data : string) : Promise<any>{
     const client : StorefrontClient = new Shopify.Clients.Storefront(
         this.configService.get('shopify.shop') || "",
         this.configService.get('shopify.storefrontKey'),
     );
     return client.query({
       data: `${data.toString()}`
+    }).then((data : any)=>{
+      return {
+        status : 1,
+        data: data?.body?.data,
+        error : null
+      }
+    }).catch((err : any)=>{
+      return {
+        status : 0,
+        data : null,
+        error : err?.response?.errors[0]
+      }
     })
   }
 }

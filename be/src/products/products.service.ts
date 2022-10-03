@@ -4,7 +4,18 @@ import ProductRepo from "../repository/Product";
 @Injectable()
 export class ProductsService {
     constructor(private repo: ProductRepo) {}
-    async list(field? : string){
-        return await this.repo.getList(field)
+    async list(){
+        return await this.repo.getList(`
+            id, 
+            title,
+            handle,
+            images(first: 250){
+                edges {
+                    node {
+                        id,url
+                    }
+                }
+            }            
+        `)
     }
 }

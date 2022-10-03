@@ -18,7 +18,9 @@ export type ProductVariant = {
 
 export interface Product{
     id : string;
+    graphqlId : string;
     name : string;
+    handle?: string;
     images? : ProductImage[];
     variants? : ProductVariant[];
 }

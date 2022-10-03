@@ -1,5 +1,5 @@
 export default () => ({
-  port: 3000,
+  port: 8000,
   shopify: {
     shop: process.env.SHOPIFY_SHOP,
     url: process.env.BACKEND_URL,
