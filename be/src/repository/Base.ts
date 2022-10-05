@@ -1,19 +1,20 @@
-import {Product} from "../entity/Product";
 import ApiService from "../Services/api.service";
 import {Injectable} from "@nestjs/common";
 import getData from "../adapter";
 import {Pagination,Edges} from "../entity/GraphqlOption";
-type Item = Product | null
+import {Item} from "../entity/Common";
+import Repository from "../entity/Repository";
 type ListData = Array<Item>;
 
 @Injectable()
-export default class {
+export default class implements Repository {
     listData : ListData;
     optionGraph : Pagination = {
         limit : 250
     }
     protected model : string
     constructor(protected apiService: ApiService) {
+        console.log("Base init",this.apiService);
     }
     async getList(field: string = "id") : Promise<ListData>{
          const data : any = await this.apiService.storefront(`
@@ -27,8 +28,8 @@ export default class {
                 }
             }
         `)
-        console.log(`data`,data);
-        const listData : ListData = data?.data ? data?.data[this.model].edges.map((item : Edges)=> getData(this.model,item.node)) : null
+        const listData : any = data?.data ? data?.data[this.model].edges.map((item : Edges)=> getData(this.model,item.node)) : null
+        console.log(`listData`,listData);
         return {...data,...{data : listData}};
     }
     get(id : string) : Item {

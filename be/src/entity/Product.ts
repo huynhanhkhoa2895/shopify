@@ -1,14 +1,11 @@
-export type ProductImage = {
-    id : string;
-    height: number;
-    width: number;
-    altText: string;
-    url: string;
-}
+import {Image} from "./Common";
+
+export type ProductId = string;
+export type VariantId = string;
 
 export type ProductVariant = {
-    id : string;
-    image: ProductImage;
+    id : VariantId;
+    image: Image;
     product: Product;
     sku: string;
     quantityAvailable: number;
@@ -17,10 +14,10 @@ export type ProductVariant = {
 }
 
 export interface Product{
-    id : string;
+    id : ProductId;
     graphqlId : string;
     name : string;
     handle?: string;
-    images? : ProductImage[];
+    images? : Image[];
     variants? : ProductVariant[];
 }

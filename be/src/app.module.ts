@@ -1,28 +1,28 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { CheckoutController } from './checkout/checkout.controller';
+import { Module,Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { CheckoutService } from './checkout/checkout.service';
-import { ProductsController } from './products/products.controller';
-import { ProductsService } from './products/products.service';
 import configuration from '../config/configuration';
 import ApiService from './Services/api.service';
-import ProductRepository from "./repository/Product"
+import {CatalogueModule} from "./modules/catalogue/Catalogue.module";
+import BaseRepo from "./repository/Base";
+import {CheckoutModule} from "./modules/checkout/Checkout.module";
+
+@Global()
 @Module({
-  controllers: [AppController, CheckoutController, ProductsController],
+  controllers: [],
   providers: [
-      AppService,
-      CheckoutService,
-      ApiService,
-      ProductsService,
-      ProductRepository
+      // AppService,
+      // CheckoutService,
+    ApiService,
+    BaseRepo
   ],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
     }),
+    CatalogueModule,
+    CheckoutModule
   ],
+  exports: [ApiService,BaseRepo]
 })
 export class AppModule {}
