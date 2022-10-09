@@ -19,7 +19,13 @@ export class ProductsService {
             variants(first: 250){
                 edges {
                     node {
-                        id,title
+                        id,
+                        title,
+                        price{
+                            amount
+                            currencyCode
+                        }
+
                     }
                 }
             }  

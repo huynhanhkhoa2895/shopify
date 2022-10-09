@@ -5,6 +5,7 @@ import ApiService from './Services/api.service';
 import {CatalogueModule} from "./modules/catalogue/Catalogue.module";
 import BaseRepo from "./repository/Base";
 import {CheckoutModule} from "./modules/checkout/Checkout.module";
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Global()
 @Module({
@@ -20,6 +21,8 @@ import {CheckoutModule} from "./modules/checkout/Checkout.module";
       isGlobal: true,
       load: [configuration],
     }),
+    MongooseModule.forRoot('mongodb://superuser:superuser@0.0.0.0:8081/admin'),
+
     CatalogueModule,
     CheckoutModule
   ],

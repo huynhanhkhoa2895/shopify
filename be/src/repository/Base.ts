@@ -14,7 +14,6 @@ export default class implements Repository {
     }
     protected model : string
     constructor(protected apiService: ApiService) {
-        console.log("Base init",this.apiService);
     }
     async getList(field: string = "id") : Promise<ListData>{
          const data : any = await this.apiService.storefront(`
@@ -29,7 +28,6 @@ export default class implements Repository {
             }
         `)
         const listData : any = data?.data ? data?.data[this.model].edges.map((item : Edges)=> getData(this.model,item.node)) : null
-        console.log(`listData`,listData);
         return {...data,...{data : listData}};
     }
     get(id : string) : Item {

@@ -1,6 +1,6 @@
 import {Body, Controller, Get, Inject, Post} from '@nestjs/common';
 import {CheckoutService} from "./checkout.service";
-import {CheckoutItem} from "../../../entity/Checkout";
+import {CartItem} from "../../../entity/Cart";
 
 @Controller('checkout')
 export class CheckoutController {
@@ -10,8 +10,8 @@ export class CheckoutController {
 
     }
     @Post("addItem")
-    async addProductCheckout(@Body() checkoutItem: CheckoutItem){
-        this.cs.addProductCheckout(checkoutItem);
+    async addProductCheckout(@Body() cartItem: CartItem){
+        this.cs.addProductCheckout(cartItem);
         return {data : 1}
     }
 }

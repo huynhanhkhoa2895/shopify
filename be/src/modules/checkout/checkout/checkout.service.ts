@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import {CheckoutItem} from "../../../entity/Checkout";
+import {CartItem} from "../../../entity/Cart";
 
 @Injectable()
 export class CheckoutService {
-    addProductCheckout(checkoutItem : CheckoutItem){
+    addProductCheckout(cartItem : CartItem){
 
     }
 }

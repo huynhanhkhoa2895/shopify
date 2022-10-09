@@ -1,6 +1,6 @@
-import { Injectable,Scope } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import Shopify, {RequestReturn} from "@shopify/shopify-api";
+import Shopify from "@shopify/shopify-api";
 import {StorefrontClient} from "@shopify/shopify-api/dist/clients/graphql/storefront_client";
 @Injectable()
 export default class {

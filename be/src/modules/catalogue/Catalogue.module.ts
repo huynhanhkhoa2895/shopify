@@ -5,6 +5,8 @@ import {ProductsService} from "./products/products.service";
 import ProductRepository from "../../repository/Product";
 import {CategoriesService} from "./categories/categories.service";
 import CategoryRepository from "../../repository/Category";
+import {MongooseModule} from "@nestjs/mongoose";
+import {Admin, AdminSchema} from "../../schema/admin";
 @Module({
     controllers: [ProductsController,CategoriesController],
     providers: [
@@ -25,6 +27,7 @@ import CategoryRepository from "../../repository/Category";
             useClass: CategoryRepository
         },
     ],
+    imports: [MongooseModule.forFeature([{ name: Admin.name, schema: AdminSchema }])]
     // exports: [ProductsService,ProductRepository,CategoriesService,CategoryRepository],
 })
 export class CatalogueModule {}

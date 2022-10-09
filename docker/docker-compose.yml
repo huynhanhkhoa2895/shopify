@@ -4,17 +4,18 @@ services:
   app:
     container_name: app
     image: ubuntu-image
-    build: ..
     ports:
       - '3000:3000'
       - '80:80'
     restart: always
     tty: true
     volumes:
-      - .:/var/www/html
+      - ..:/var/www/html
     depends_on:
       - mongo
       - redis
+    networks:
+      - my_network
   mongo:
     image: mongo
     environment:
@@ -23,8 +24,15 @@ services:
       - MONGO_INITDB_DATABASE=shopify
     ports:
       - 8081:27017
+    networks:
+      - my_network
   redis:
     image: redis
     restart: always
     ports:
       - '6379:6379'
+    networks:
+      - my_network
+networks:
+  my_network:
+    driver: bridge
