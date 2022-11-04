@@ -7,16 +7,15 @@ export default class {
     constructor(private Model: Model<any>) {
     }
     create(doc : any){
-        // const model : Model<any> = mongoose.model(this.modelName,this.schema);
-        // const doc = new model();
-        // // for(const field of Object.keys(data)){
-        // //     doc[field] = data[field]
-        // // }
-        // doc.deviceId = "test"
-        // doc.cartId = "cartID 2"
-        // return doc.save
         const created = new this.Model(doc);
         return created.save();
+    }
+    updateWithData(filter : object,doc : any){
+        return this.Model.findOneAndUpdate(filter,doc).then((data : any)=>{
+            return data
+        }).catch((err : any)=>{
+            return err
+        })
     }
     getWithId(id : Types.ObjectId){
         return this.Model.findById(id)

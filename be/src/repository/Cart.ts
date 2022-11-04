@@ -45,16 +45,78 @@ const graphqlCart = `
 
 @Injectable()
 export default class CartRepository {
-    constructor(protected apiService: ApiService,@Inject("MODEL_CART")protected cartModel: CartModel) {
+    constructor(protected apiService: ApiService,@Inject("MODEL_CART")public cartModel: CartModel) {
     }
-    createCart(VariantId : VariantId,qty : number = 1){
+
+    getCartFromShopify(cartId: CartId){
+        return this.apiService.storefront(`
+            query {
+                  cart(
+                    id: "${cartId}"
+                  ) {
+            id
+            createdAt
+            updatedAt
+            lines(first: 250) {
+              edges {
+                node {
+                  id
+                  quantity
+                  merchandise {
+                    ... on ProductVariant {
+                      id
+                    }
+                  }
+                  attributes {
+                    key
+                    value
+                  }
+                }
+              }
+            }
+            attributes {
+              key
+              value
+            }
+            cost {
+              totalAmount {
+                amount
+                currencyCode
+              }
+              subtotalAmount {
+                amount
+                currencyCode
+              }
+              totalTaxAmount {
+                amount
+                currencyCode
+              }
+              totalDutyAmount {
+                amount
+                currencyCode
+              }
+            }
+            buyerIdentity {
+              email
+              phone
+              customer {
+                id
+              }
+              countryCode
+            }
+          }
+        }
+        `)
+    }
+
+    createCartFromShopify(VariantId : VariantId){
         return this.apiService.storefront(`
             mutation {
               cartCreate(
                 input: {
                   lines: [
                     {
-                      quantity: ${qty}
+                      quantity: 1
                       merchandiseId: "${VariantId}"
                     }
                   ]
@@ -63,32 +125,56 @@ export default class CartRepository {
                 ${graphqlCart}
               }
              }
-        `)
+        `).catch((err : any)=>{
+            throw(err)
+        });
     }
 
-    updateCart(cartId : CartId,lineId : CartLineId){
+    updateCustomerCartFromShopify(cartId: CartId,param : {email : string,phone : string}){
+        return this.apiService.storefront(`
+            cartBuyerIdentityUpdate(
+                cartId: "${cartId}"
+                buyerIdentity: {
+                  email: "${param.email}"
+                  phone: "${param.phone}"
+                  countryCode: VN
+                }
+              ) {
+                cart {
+                  id
+                  buyerIdentity {
+                    email
+                    phone
+                    countryCode
+                  }
+                }
+              }
+        `).catch((err : any)=>{
+            throw(err)
+        });
+    }
+
+    updateLineCartFromShopify(cartId: CartId,lineId : CartLineId,qty : number = 1){
         return this.apiService.storefront(`
             mutation {
-              cartLinesUpdate(
-                cartId: "${cartId}"
-                lines: {
-                  id: "${lineId}"
-                  quantity: 3
-                }
-              ){
-                ${graphqlCart}
-              }
+                  cartLinesUpdate(
+                        cartId: "${cartId}"
+                              lines: {
+                                  quantity: ${qty}
+                                  id: "${lineId}"
+                              }
+                          
+                  ){
+                    ${graphqlCart}
+                  }
              }
-        `)
+        `).catch((err : any)=>{
+            throw(err)
+        });
     }
+
 
     getLineId(cartId : CartId,variantId : VariantId){
         return this.cartModel.getWithData({"cart.cartId" : cartId,variantId})
-    }
-    addToDB(cartDB : CartDB){
-        return this.cartModel.create(cartDB)
-    }
-    getAllDB(){
-        return this.cartModel.getAll();
     }
 }

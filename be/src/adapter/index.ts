@@ -19,7 +19,11 @@ function getEdges(edges : Edges[]){
 
 export function getResource(response : ResourceResponse ) : ResourceResponse{
     if(response.data == null) response.data = null;
-    if(response.error == null) response.error = null;
+    if(response.error == null) {
+        response.error = null
+    }else{
+        response.error = JSON.parse(JSON.stringify(response.error, ["message", "arguments", "type", "name", "lines"]));
+    }
     return {...response,...{message : response.status === 1 ? "SUCCESS" : "ERROR"}}
 }
 
