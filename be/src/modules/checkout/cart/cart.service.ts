@@ -63,12 +63,12 @@ export class CartService {
     }
 
     updateCustomerInfomation(deviceId: string,cartId : string,param : {lineId : string, qty : number}) {
-        return this.repo.updateLineCartFromShopify(cartId,lineId, qty).then(async ({data} : any)=>{
-            const resultStorefront : Cart = getData("cart",data?.cartLinesUpdate?.cart);
-            return resultStorefront
-        }).catch((err : any)=>{
-            throw(err)
-        });
+        // return this.repo.updateLineCartFromShopify(cartId,lineId, qty).then(async ({data} : any)=>{
+        //     const resultStorefront : Cart = getData("cart",data?.cartLinesUpdate?.cart);
+        //     return resultStorefront
+        // }).catch((err : any)=>{
+        //     throw(err)
+        // });
     }
 
     updateLine(deviceId: string,cartId : string,param : {lineId : string, qty : number}) {
